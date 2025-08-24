@@ -1,0 +1,99 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ContactBook.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="using:ContactBook.Converters"
+        mc:Ignorable="d"
+        x:Class="ContactBook.Views.MainWindow" 
+        x:DataType="vm:MainWindowViewModel"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        SizeToContent="WidthAndHeight"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Contacts">
+  <Grid HorizontalAlignment="Left" VerticalAlignment="Center"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,20,Auto"
+        Margin="20">
+    <Grid.Resources>
+      <converters:FromContactToStringConverter x:Key="FromContactToString"/>
+    </Grid.Resources>
+    
+    <Grid.Styles>
+      <Style Selector="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="5"/>
+      </Style>
+
+      <Style Selector="TextBlock.error">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Margin" Value="5"/>
+      </Style>
+
+      <Style Selector="TextBox">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Margin" Value="5"/>
+      </Style>
+
+      <Style Selector="Button">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Width" Value="95"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Margin" Value="5"/>
+      </Style>
+    </Grid.Styles>
+
+    <TextBlock Text="First name:"/>
+    <TextBlock Text="Last name:" Grid.Row="1"/>
+    <TextBlock Text="Address:" Grid.Row="2"/>
+    <TextBlock Text="Phone:" Grid.Row="3"/>
+    <TextBlock Text="E-mail" Grid.Row="4"/>
+    <TextBlock Text="Age:" Grid.Row="5"/>
+
+    <TextBox Name="txtFirstName" Grid.Column="1"/>
+    <TextBox Name="txtLastName" Grid.Row="1" Grid.Column="1"/>
+    <TextBox Name="txtAddress" Grid.Row="2" Grid.Column="1"/>
+    <TextBox Name="txtPhone" Grid.Row="3" Grid.Column="1"/>
+    <TextBox Name="txtEmail" Grid.Row="4" Grid.Column="1"/>
+    <TextBox Name="txtAge" Grid.Row="5" Grid.Column="1"/>
+
+    <ListBox Name="listBoxContacts" Margin="5"
+             Grid.Column="3" Grid.RowSpan="6"
+             Width="200" Height="250">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Converter={StaticResource FromContactToString}}"
+                     HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Grid.Row="6" Grid.ColumnSpan="2">
+      <Button Name="btnNew" Content="New"/>
+      <Button Name="btnInsert" Content="Insert"/>
+      <Button Name="btnUpdate" Content="Update"/>
+    </StackPanel>
+
+    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Grid.Row="6" Grid.Column="3">
+      <Button Name="btnDelete" Content="Delete"/>
+      <Button Name="btnClear" Content="Clear"/>
+    </StackPanel>
+
+    <TextBlock Name="txtError" Classes="error" Foreground="Red"
+               Grid.Row="7" Grid.ColumnSpan="3"/>
+  </Grid>
+</Window>
