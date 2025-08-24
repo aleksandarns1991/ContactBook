@@ -12,7 +12,7 @@ namespace ContactBook.DataAccess
 
         public ContactRepository()
         {
-            connStr = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=dbo.ContactBook;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+            connStr = "Insert your connection string";
         }
 
         public async Task<IEnumerable<Contact>> GetAllAsync()
